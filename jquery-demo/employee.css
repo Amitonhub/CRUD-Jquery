@@ -1,0 +1,28 @@
+#image {
+	width: 100px;
+	margin-left: 90px;
+	margin-bottom: 20px;
+}
+
+#addedItems {
+	flex-direction: column;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#pageControls {
+	float: right;
+}
+
+.error {
+	border: 1px solid red;
+}
+
+.child-table {
+	display: none;
+}
+
+.collapse {
+	display: none;
+}

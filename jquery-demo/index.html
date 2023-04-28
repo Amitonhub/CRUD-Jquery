@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Employee Management Sys.</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<link rel="stylesheet" href="/employee.css">
+	<link rel="stylesheet" href="/pagination.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="/pagination.js"></script>
+	<script src="/employee.js"></script>
+	<script src="/localStorageUtility.js"></script>
+	<script src="/common.js"></script>
+	<script src="/validation.js"></script>
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg bg-dark p-3 navbar-dark p-3">
+			<div class=" container-fluid"> <a class="navbar-brand mb-0 h1" href="#">Employees</a>
+				<div class="col-6" id="navbarSupportedContent">
+					<form class="d-flex" role="search">
+						<input class="form-control me-2" id="searchBar" type="search" placeholder="Search">
+						<button class="btn text-dark bg-white btn-outline-white btn-sm me-4" id="searchButton" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+						<button type="button" class="btn btn-info btn-lg col-4" id="addEmployeeButton"><i class="fa-solid fa-user-plus"></i>Add Employee</button>
+						<div class="modal fade" id="dialogBox" tabindex="-1">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h1 class="modal-title fs-5" id="addEmployeeHeading">Add Employee</h1>
+										<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+									</div>
+									<div class="modal-body p-0">
+										<section class="vh-200">
+											<div class="container py-12 h-100">
+												<div class="row p-0 justify-content-center align-items-center h-100">
+													<div class="col-12 col-lg-12 col-xl-12 p-lg-4">
+														<div class="card p-3 bg-light shadow-2-strong card-registration" style="border-radius: 15px;">
+															<div class="card-body p-4 p-md-3 form-control-lg-12 formdata">
+																<form action="" method="post" id="myForm">
+																	<div class="row gap-2 justify-content-center">
+																		<div class="row pb-md-2">
+																			<div class="col-md-6 form-control-sm-2">
+																				<div class="row">
+																					<div class="col-auto w-25 p-0 mt-1">
+																						<label class="form-label" for="firstName">First Name</label>
+																					</div>
+																					<div class="col-auto w-75 pr-1">
+																						<input type="text" id="firstName" name="firstName" class="form-control nat-required" />
+																						<input type="hidden" id="valueId" class="form-control text" /> </div>
+																				</div>
+																			</div>
+																			<div class="col-md-6 form-control-lg-4 form-control-sm-2">
+																				<div class="row">
+																					<div class="col-auto w-25 p-0 mt-1">
+																						<label class="form-label" for="lastName">Last Name</label>
+																					</div>
+																					<div class="col-auto w-75 pr-1">
+																						<input type="text" id="lastName" name="lastName" class="form-control nat-required" /> </div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row pb-md-2">
+																			<div class="col-md-6">
+																				<div class="row">
+																					<div class="col-auto w-25 p-0 mt-1">
+																						<label class="form-label" for="email">Email</label>
+																					</div>
+																					<div class="col-auto w-75 pr-1">
+																						<input type="email" id="email" name="email" class="form-control"/> </div>
+																				</div>
+																			</div>
+																			<div class="col-md-6 form-control-lg-4">
+																				<div class="row genderOption">
+																					<div class="col-4 p-0 mt-1">
+																						<label for="gender" class="col-form-label">Gender</label>
+																					</div>
+																					<div class="form-check col-4 mt-1">
+																						<label class="form-check-label" for="female">Female</label>
+																						<input type="radio" value="female" class="form-check-input gender" name="gender"> </div>
+																					<div class="form-check col-4 mt-1">
+																						<label class="form-check-label" for="male">Male</label>
+																						<input type="radio" value="male" class="form-check-input gender" name="gender"> </div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row">
+																		<div class="col-md-6 pb-2">
+																			<div class="form-outline">
+																				<div class="row">
+																					<div class="col-auto w-25 mt-1">
+																						<label for="birthdayDate" class="form-label">DOB</label>
+																					</div>
+																					<div class="col-auto w-75 mt-1">
+																						<input type="date" class="form-control form-control-lg-4" value="2001-12-29" id="dob" /> </div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-md-6 form-control-lg-4">
+																			<div class="form-outline">
+																				<div class="row">
+																					<div class="col-auto w-25 mt-1 p-0">
+																						<label class="form-label" for="joiningDate">Joining Date</label>
+																					</div>
+																					<div class="col-auto w-75 mt-1 pr-1 d-block">
+																						<input type="date" id="joiningDate" value="2023-01-02" class="form-control form-control-lg-4" /> </div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row">
+																		<div class="col-md-6 pb-2">
+																			<div class="form-outline">
+																				<div class="row">
+																					<div class="col-auto w-25 mt-1">
+																						<label for="designation" class="form-label">Designation</label>
+																					</div>
+																					<div class="col-auto w-75 mt-1">
+																						<select class="form-select " id="designation" aria-label="Default select example">
+																							<option selected disabled>select</option>
+																							<option name="designation" value="jrDeveloper">Jr. Developer</option>
+																							<option name="designation" value="srDeveloper">Sr. Developer</option>
+																							<option name="designation" value="projectManager">Project Manager</option>
+																						</select>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-md-6 form-control-lg-4">
+																			<div class="form-outline">
+																				<div class="row">
+																					<div class="col-auto w-25 mt-1 p-0">
+																						<label class="form-label" id="uploadPhoto" for="uploadProfilePhoto">Upload Photo</label>
+																					</div>
+																					<div class="col-auto w-75 mt-1 pr-1 d-block ">
+																						<input type="file" accept="image/*" id="uploadImage" class="form-control form-control-lg-4" /> </div>
+																					<div> <img id="image" src="" /> </div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row">
+																		<div class="col-md-6 pb-2">
+																			<div class="form-outline">
+																				<div class="row">
+																					<div class="col-4 w-25">
+																						<label for="skills" class="form-label">Skills</label>
+																					</div>
+																					<div class="input-group w-75">
+																						<input class="form-control" type="text" id="skills" />
+																						<div class="btn btn-outline-secondary" id="skillAddButton">Add</div>
+																					</div>
+																					<br />
+																					<ol id="addedItems"></ol>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-md-6 form-control-lg-4">
+																			<div class="form-outline">
+																				<div class="row">
+																					<div class="col-4 w-25 p-0">
+																						<label class="form-label" for="description">Description</label>
+																					</div>
+																					<div class="input-group w-75">
+																						<textarea name="description" class="form-control" id="description" rows="4"></textarea>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+															</div>
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>
+									</div>
+									</section>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary" id="save" name="save">Save</button>
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
+				</form>
+			</div>
+			</div>
+		</nav>
+	</header>
+
+	<body>
+		<table class="table" id="employeeTable">
+			<thead>
+				<tr>
+					<th class="tHead" scope="col"><i id="collapse" class="fa-solid fa-angle-up collapse"></i></th>
+					<th class="tHead" scope="col">Name</th>
+					<th class="tHead" scope="col">Email</th>
+					<th class="tHead" scope="col">Designation</th>
+					<th class="tHead" scope="col">Gender</th>
+					<th class="tHead" scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody id="displayEmployees"> </tbody>
+		</table>
+		<div class="pageControls"> </div>
+	</body>
+</body>
+
+</html>
